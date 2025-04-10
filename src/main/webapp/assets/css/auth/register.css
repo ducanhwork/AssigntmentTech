@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.form-container{
+    width: 300px;
+    margin: 10% auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.title{
+    padding: 10px 10px;
+    font-size: 20px;
+    background-color: #eeeeee;
+    color: black;
+}
+input[type="email"],
+input[type="password"],
+input[type="text"]{
+    width: 91%;
+    height: 40px;
+    margin: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+input[type="checkbox"]{
+    margin: 15px 10px;
+}
+button{
+    width: 91%;
+    height: 40px;
+    margin: 15px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #449f04;
+    color: white;
+}
+a{
+    text-decoration: none;
+    color: #0072b9;
+    margin: 15px 10px;
+}
+#errorMessage{
+    color: red;
+    font-size: 14px;
+    margin: 5px 10px;
+}
