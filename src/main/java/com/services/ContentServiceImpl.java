@@ -41,6 +41,25 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Content findById(Long id) {
+        try {
+            var connection = DatabaseConnectionUtil.getConnection();
+            var preparedStatement = connection.prepareStatement(SQLCommand.Content.FIND_BY_ID);
+            preparedStatement.setLong(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Content content = new Content();
+                content.setId(resultSet.getLong("id"));
+                content.setTitle(resultSet.getString("Title"));
+                content.setBrief(resultSet.getString("Brief"));
+                content.setContent(resultSet.getString("Content"));
+                content.setAuthorId(resultSet.getLong("AuthorId"));
+                content.setCreateDate(resultSet.getTimestamp("CreateDate").toLocalDateTime());
+                content.setUpdateTime(resultSet.getTimestamp("UpdateTime").toLocalDateTime());
+                return content;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Error while fetching content by ID: " + e.getMessage());
+        }
         return null;
     }
 

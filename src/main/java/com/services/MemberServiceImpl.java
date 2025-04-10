@@ -60,17 +60,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean updateMember(Long id, String firstname, String lastname, String username, String phone, String email, String description) {
+    public boolean updateMember(Long id, String firstname, String lastname, String phone, String description) {
         try (Connection connection = DatabaseConnectionUtil.getConnection()) {
             String sql = SQLCommand.Member.UPDATE_MEMBER;
             var preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, firstname);
             preparedStatement.setString(2, lastname);
-            preparedStatement.setString(3, username);
-            preparedStatement.setString(4, phone);
-            preparedStatement.setString(5, email);
-            preparedStatement.setString(6, description);
-            preparedStatement.setLong(7, id);
+            preparedStatement.setString(3, phone);
+            preparedStatement.setString(4, description);
+            preparedStatement.setLong(5, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             logger.log(Level.WARNING, e.getSQLState());

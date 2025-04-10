@@ -34,11 +34,7 @@ public class addContentController extends HttpServlet {
         String brief = req.getParameter("brief");
         String content = req.getParameter("content");
         HttpSession session = req.getSession();
-        Object member = session.getAttribute("member");
-        if (member == null) {
-            resp.sendRedirect("login");
-            return;
-        }
+        Member member = (Member) session.getAttribute("member");
         Long authorId = ((Member) member).getId();
 
         // Here you would typically call a service to save the content to the database

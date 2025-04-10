@@ -23,6 +23,10 @@ public class viewContentController extends HttpServlet {
         // Thiết lập mã hóa cho req và response
         // Simulate fetching data (replace with actual database logic)
         var listContents = contentService.findAll();
+        if(listContents == null || listContents.isEmpty()) {
+            req.getRequestDispatcher("/views/content/listContent.jsp").forward(req, resp);
+            return;
+        }
         int recordsPerPage = 3;
         int totalRecords = listContents.size();
         int totalPages = (int) Math.ceil((double) totalRecords / recordsPerPage);

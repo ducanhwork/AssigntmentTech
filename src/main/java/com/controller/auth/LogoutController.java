@@ -2,10 +2,7 @@ package com.controller.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
@@ -17,7 +14,10 @@ public class LogoutController extends HttpServlet {
         HttpSession session = req.getSession(false);
         if (session != null)
             session.invalidate();
-
+        Cookie cookie = new Cookie("rememberMe", "");
+        cookie.setMaxAge(0);
+        cookie.setPath(req.getContextPath());
+        resp.addCookie(cookie);
         // Redirect to the login page or home page after logout
         resp.sendRedirect(req.getContextPath() + "/login");
     }

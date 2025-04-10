@@ -5,7 +5,7 @@ public interface SQLCommand {
         String FIND_ALL = "SELECT * FROM Member";
         String FIND_BY_ID = "SELECT * FROM Member WHERE id = ?";
         String INSERT_MEMBER = "INSERT INTO Member (Username, Password, Email, CreatedDate) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-        String UPDATE_MEMBER = "UPDATE Member SET Firstname = ?, Lastname = ?, Username = ?, Phone = ?, Email = ?, Description = ?, UpdateTime = CURRENT_TIMESTAMP  WHERE id = ?";
+        String UPDATE_MEMBER = "UPDATE Member SET Firstname = ?, Lastname = ?, Phone = ?, Description = ?, UpdateTime = CURRENT_TIMESTAMP  WHERE id = ?";
         String DELETE_MEMBER = "DELETE FROM Member WHERE id = ?";
         String FIND_BY_EMAIL_AND_PASSWORD = "SELECT * FROM Member WHERE Email = ? AND Password = ?";
     }

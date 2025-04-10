@@ -12,6 +12,7 @@
 <head>
     <title>View content</title>
     <link rel="stylesheet" href="assets/css/content/listContent.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -39,9 +40,10 @@
                         <td>${fn:substring(content.brief, 0, 50)}...</td>
                         <td>${content.createDate}</td>
                         <td colspan="3">
-                            <a href="viewContentDetail?id=${content.id}" class="btn btn-primary">View</a>
-                            <a href="editContent?id=${content.id}" class="btn btn-secondary">Edit</a>
-                            <a href="deleteContent?id=${content.id}" class="btn btn-danger">Delete</a>
+                            <a href="editContent?id=${content.id}" onclick="return handleEditContent(${content.authorId})" class="btn btn-secondary">Edit</a>
+                            <a href="deleteContent?id=${content.id}"
+                               onclick="return handleDeleteContent(${content.authorId})"
+                               class="btn btn-danger">Delete</a>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -79,5 +81,59 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script !src="">
+    const successMessage = "${requestScope.get("success")}";
+    if (successMessage) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success registered',
+            text: successMessage,
+        });
+    }
+    const errorMessage = "${requestScope.get("error")}";
+    if (errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: errorMessage,
+        });
+    }
+
+    function handleDeleteContent(authorId) {
+        var userId = "${sessionScope.get("member").id}";
+        console.log('ai', Number.parseInt(userId));
+        console.log('ci', authorId);
+        if (authorId != userId) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "You don't have permission to delete this content",
+            });
+            return false;
+        } else {
+            if (confirm("Are you sure you want to delete this content?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    function handleEditContent(authorId) {
+        var userId = "${sessionScope.get("member").id}";
+        console.log('ai', Number.parseInt(userId));
+        console.log('ci', authorId);
+        if (authorId != userId) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "You don't have permission to edit this content",
+            });
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
 </body>
 </html>
