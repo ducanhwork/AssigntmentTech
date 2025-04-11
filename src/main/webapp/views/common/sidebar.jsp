@@ -14,12 +14,14 @@
 <div class="sidebar">
     <div class="search-box">
         <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#666" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
+            <form action="searchContent" method="get">
+                <input type="text" name="keyword" placeholder="Search...">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#666" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
         </div>
     </div>
 
@@ -41,10 +43,10 @@
 <script !src="">
     var url = window.location.href;
     console.log(url);
-    if(url.includes('viewContent')) {
+    if (url.includes('viewContent')) {
         console.log('viewContent');
         document.querySelector('.menu-item[href="viewContent"]').classList.add('active');
-    } else if(url.includes('addContent')) {
+    } else if (url.includes('addContent')) {
         console.log('addContent');
         document.querySelector('.menu-item[href="addContent"]').classList.add('active');
     }

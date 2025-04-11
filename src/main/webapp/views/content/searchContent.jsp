@@ -19,9 +19,9 @@
 <div class="container">
     <jsp:include page="../common/sidebar.jsp"/>
     <div class="main-content">
-        <h1 class="list-title">View Content</h1>
+        <h1 class="list-title">Search Content</h1>
         <div class="table-section">
-            <h2>VIEW CONTENT LIST</h2>
+            <h2>RESULT SEARCH</h2>
             <table>
                 <thead>
                 <tr>
@@ -33,16 +33,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="content" items="${contentList}">
+                <c:forEach var="content" items="${results}">
                     <tr>
                         <td>${content.id}</td>
                         <td>${content.title}</td>
                         <td>${fn:substring(content.brief, 0, 50)}...</td>
                         <td>${content.createDate}</td>
                         <td colspan="3">
-                            <span class="btn btn-primary" onclick="handleViewDetailContent(${content.id})">View</span>
-                            <a style="text-decoration: none" href="editContent?id=${content.id}" onclick="return handleEditContent(${content.authorId})" class="btn btn-secondary">Edit</a>
-                            <a style="text-decoration: none" href="deleteContent?id=${content.id}"
+                            <span onclick="handleViewDetailContent(${content.id})" class="btn btn-primary">View</span>
+                            <a href="editContent?id=${content.id}" onclick="return handleEditContent(${content.authorId})" class="btn btn-secondary">Edit</a>
+                            <a href="deleteContent?id=${content.id}"
                                onclick="return handleDeleteContent(${content.authorId})"
                                class="btn btn-danger">Delete</a>
                     </tr>
@@ -139,7 +139,7 @@
         const url = "http://localhost:8080/assignment/viewContentDetail?id=" + contentId;
         fetch(url)
             .then(response => {
-                return response.json();
+               return response.json();
             })
             .then(data => {
                 console.log(data);

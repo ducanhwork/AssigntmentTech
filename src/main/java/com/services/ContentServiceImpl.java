@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class ContentServiceImpl implements ContentService {
     private static final Logger logger = Logger.getLogger(ContentServiceImpl.class.getName());
+
     @Override
     public List<Content> findAll() {
         List<Content> listContents = new ArrayList<>();
@@ -83,10 +84,10 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public boolean updateContent(Long id, String title, String brief, String content) {
-        try(
+        try (
                 var connection = DatabaseConnectionUtil.getConnection();
                 var preparedStatement = connection.prepareStatement(SQLCommand.Content.UPDATE_CONTENT)
-                ) {
+        ) {
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, brief);
             preparedStatement.setString(3, content);
@@ -110,5 +111,31 @@ public class ContentServiceImpl implements ContentService {
             logger.log(Level.WARNING, "Error while deleting content: " + e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<Content> findByTitle(String keyword) {
+        List<Content> listContents = new ArrayList<>();
+        try (
+                var connection = DatabaseConnectionUtil.getConnection();
+                var preparedStatement = connection.prepareStatement("SELECT * FROM Content WHERE Title LIKE ?")
+        ) {
+            preparedStatement.setString(1, "%"+keyword+"%");
+            var resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Content content = new Content();
+                content.setId(resultSet.getLong("id"));
+                content.setTitle(resultSet.getString("Title"));
+                content.setBrief(resultSet.getString("Brief"));
+                content.setContent(resultSet.getString("Content"));
+                content.setAuthorId(resultSet.getLong("AuthorId"));
+                content.setCreateDate(resultSet.getTimestamp("CreateDate").toLocalDateTime());
+                content.setUpdateTime(resultSet.getTimestamp("UpdateTime").toLocalDateTime());
+                listContents.add(content);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Error while searching contents by title: " + e.getMessage());
+        }
+        return listContents;
     }
 }

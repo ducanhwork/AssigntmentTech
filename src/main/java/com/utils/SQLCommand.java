@@ -15,5 +15,6 @@ public interface SQLCommand {
         String INSERT_CONTENT = "INSERT INTO Content (Title, Brief, Content, CreateDate, UpdateTime, AuthorId) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)";
         String UPDATE_CONTENT = "UPDATE Content SET Title = ?, Brief = ?, Content = ?, UpdateTime = CURRENT_TIMESTAMP WHERE id = ?";
         String DELETE_CONTENT = "DELETE FROM Content WHERE id = ?";
+        String FIND_BY_TITLE = "SELECT * FROM Content WHERE Title LIKE ?";
     }
 }

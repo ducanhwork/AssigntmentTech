@@ -15,4 +15,6 @@ public interface ContentService {
     boolean updateContent(Long id, String title, String brief, String content);
 
     boolean deleteContent(Long id);
+
+    List<Content> findByTitle(String keyword);
 }

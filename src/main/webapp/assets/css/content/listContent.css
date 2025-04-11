@@ -14,7 +14,7 @@
     padding: 20px;
 }
 
-h1 {
+h1.list-title {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
